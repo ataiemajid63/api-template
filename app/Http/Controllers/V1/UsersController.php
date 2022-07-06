@@ -36,25 +36,6 @@ class UsersController extends Controller
         return $type;
     }
 
-    public function getUsernameInfo($username)
-    {
-        if($this->username($username) === 'email') {
-            $user = $this->userRepository->getOneByEmail($username);
-        }
-        else {
-            $user = $this->userRepository->getOneByMobile($username);
-        }
-
-        $data = [
-            'user_exists' => !is_null($user),
-            'user_has_password' => $user && !is_null($user->getPassword()),
-            'user_status' => $user ? $user->getStatus() : null,
-            'username' => $username,
-        ];
-
-        return new Response($data);
-    }
-
     public function getUserInfo(Request $request)
     {
         /**
